@@ -3,39 +3,32 @@ package com.kuhy.nameless_quest;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+
+import java.util.ArrayList;
 
 public class NamelessQuest extends ApplicationAdapter {
-	private float cameraWidth = 800;
-	OrthographicCamera camera;
 	private TiledMap map;
-	private TiledMapRenderer renderer;
-	
+	private Room myRoom;
+
 	@Override
 	public void create () {
-		camera = new OrthographicCamera();
-		configureCamera();
 		map = new TmxMapLoader().load("testmap.tmx");
-		renderer = new OrthogonalTiledMapRenderer(map);
+		Texture texture = new Texture(Gdx.files.internal("mario.png"));
+		WorldEntity worldEntity = new WorldEntity(texture);
+		ArrayList<WorldEntity> worldEntities = new ArrayList<WorldEntity>();
+        worldEntity.setPosition(64, 192);
+		worldEntities.add(worldEntity);
+		myRoom = new Room(map, worldEntities);
 	}
 
 	@Override
 	public void render () {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		camera.update();
-		renderer.setView(camera);
-		renderer.render();
-	}
-
-	private void configureCamera() {
-		camera.setToOrtho(false, cameraWidth, cameraWidth * Gdx.graphics.getHeight() / Gdx.graphics.getWidth());
+		myRoom.render();
 	}
 
 	@Override
