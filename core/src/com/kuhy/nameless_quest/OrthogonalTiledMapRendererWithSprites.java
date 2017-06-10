@@ -19,7 +19,7 @@ public class OrthogonalTiledMapRendererWithSprites extends OrthogonalTiledMapRen
     private int drawSpritesAfterLayer = 2;
 
     public OrthogonalTiledMapRendererWithSprites(TiledMap map) {
-        super(map);
+        super(map, 1 / (float)map.getTileSets().getTile(1).getTextureRegion().getRegionHeight());
         sprites = new ArrayList<WorldEntity>();
     }
 
