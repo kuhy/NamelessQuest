@@ -10,6 +10,8 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
@@ -34,10 +36,10 @@ public class NamelessQuest extends ApplicationAdapter {
 		map = new TmxMapLoader().load("testmap.tmx");
 		Texture marioTexture = new Texture(Gdx.files.internal("mario.png"));
 		mario = new WorldEntity(marioTexture);
-		ArrayList<WorldEntity> worldEntities = new ArrayList<WorldEntity>();
-		mario.setBounds(2, 6.5f, 1, 1);
-		worldEntities.add(mario);
-		myRoom = new Room(map, worldEntities);
+		mario.setPosition(2, 6);
+        mario.setSize(1, 1);
+		myRoom = new Room(map);
+        myRoom.addWorldEntity(mario);
 
         arrowsAtlas = new TextureAtlas(Gdx.files.internal("arrows.atlas"));
         arrowSkin = new Skin();
@@ -111,17 +113,21 @@ public class NamelessQuest extends ApplicationAdapter {
 	}
 
     public void up() {
-        mario.setPosition(1, 2);
+        if(mario.hasActions() == false)// !!!Později změnit podmínku!!!
+            mario.addAction(Actions.moveTo(mario.getX(), mario.getY() + 1, mario.getSpeed()));
     }
 
     public void left() {
-        mario.setPosition(0, 1);
+        if(mario.hasActions() == false)// !!!Později změnit podmínku!!!
+            mario.addAction(Actions.moveTo(mario.getX() - 1, mario.getY(), mario.getSpeed()));
     }
     public void right() {
-        mario.setPosition(2, 1);
+        if(mario.hasActions() == false)// !!!Později změnit podmínku!!!
+            mario.addAction(Actions.moveTo(mario.getX() +  1, mario.getY(), mario.getSpeed()));
     }
     public void down() {
-        mario.setPosition(1, 0);
+        if(mario.hasActions() == false)// !!!Později změnit podmínku!!!
+            mario.addAction(Actions.moveTo(mario.getX(), mario.getY() - 1, mario.getSpeed()));
     }
 
 	@Override

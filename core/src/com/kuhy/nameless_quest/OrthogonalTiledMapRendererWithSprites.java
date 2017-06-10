@@ -6,6 +6,8 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import java.util.ArrayList;
 
@@ -14,17 +16,16 @@ import java.util.ArrayList;
  */
 
 public class OrthogonalTiledMapRendererWithSprites extends OrthogonalTiledMapRenderer {
-    private Sprite sprite;
-    private ArrayList<WorldEntity> sprites;
+    private Stage worldEntities;
     private int drawSpritesAfterLayer = 2;
 
     public OrthogonalTiledMapRendererWithSprites(TiledMap map) {
         super(map, 1 / (float)map.getTileSets().getTile(1).getTextureRegion().getRegionHeight());
-        sprites = new ArrayList<WorldEntity>();
+        worldEntities = new Stage();
     }
 
-    public void setSprites(ArrayList<WorldEntity> sprites) {
-        this.sprites = sprites;
+    public void setWorldEntities(Stage worldEntities) {
+        this.worldEntities = worldEntities;
     }
 
     @Override
@@ -37,8 +38,8 @@ public class OrthogonalTiledMapRendererWithSprites extends OrthogonalTiledMapRen
                     renderTileLayer((TiledMapTileLayer)layer);
                     currentLayer++;
                     if(currentLayer == drawSpritesAfterLayer){
-                        for(Sprite sprite : sprites)
-                            sprite.draw(batch);
+                        for(Actor actor: worldEntities.getActors())
+                            actor.draw(batch, 1f);
                     }
                 } else {
                     for (MapObject object : layer.getObjects()) {
