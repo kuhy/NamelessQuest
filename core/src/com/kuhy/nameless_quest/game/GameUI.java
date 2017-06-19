@@ -35,10 +35,10 @@ public class GameUI extends Stage implements UserInterface {
         arrowsAtlas = new TextureAtlas(Gdx.files.internal("arrows.atlas"));
         arrowSkin = new Skin();
         arrowSkin.addRegions(arrowsAtlas);
-        makeButton(WorldEntity.Direction.up, "arrow-up-off", "arrow-up-on", ARROWS_DISTANCE, 2 * ARROWS_DISTANCE);
-        makeButton(WorldEntity.Direction.down, "arrow-down-off", "arrow-down-on", ARROWS_DISTANCE, 0);
-        makeButton(WorldEntity.Direction.left, "arrow-left-off", "arrow-left-on", 0, ARROWS_DISTANCE);
-        makeButton(WorldEntity.Direction.right, "arrow-right-off", "arrow-right-on", 2 * ARROWS_DISTANCE, ARROWS_DISTANCE);
+        makeButton(WorldEntity.Direction.UP, "arrow-up-off", "arrow-up-on", ARROWS_DISTANCE, 2 * ARROWS_DISTANCE);
+        makeButton(WorldEntity.Direction.DOWN, "arrow-down-off", "arrow-down-on", ARROWS_DISTANCE, 0);
+        makeButton(WorldEntity.Direction.LEFT, "arrow-left-off", "arrow-left-on", 0, ARROWS_DISTANCE);
+        makeButton(WorldEntity.Direction.RIGHT, "arrow-right-off", "arrow-right-on", 2 * ARROWS_DISTANCE, ARROWS_DISTANCE);
     }
 
     private void makeButton(final WorldEntity.Direction direction, String up, String down, float x, float y) {

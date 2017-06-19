@@ -20,28 +20,11 @@ public class RoomManager {
     public boolean moveWorldEntity(final WorldEntity worldEntity, WorldEntity.Direction direction) {
         if(worldEntity.isMoving())
             return false;
-        switch (direction) {
-            case up:
-                addMoveToAction(worldEntity, 0, 1);
-                break;
-            case down:
-                addMoveToAction(worldEntity, 0, -1);
-                break;
-            case left:
-                addMoveToAction(worldEntity, -1, 0);
-                break;
-            case right:
-                addMoveToAction(worldEntity, 1, 0);
-                break;
-        }
-        return true;
-    }
-
-    private void addMoveToAction(final WorldEntity worldEntity, int x, int y) {
-        worldEntity.addAction(sequence(Actions.moveTo(worldEntity.getX() + x, worldEntity.getY() + y, worldEntity.getSpeed()), run(new Runnable() {
+        worldEntity.addAction(sequence(Actions.moveTo(worldEntity.getX() + direction.getX(), worldEntity.getY() + direction.getY(), worldEntity.getSpeed()), run(new Runnable() {
             public void run () {
                 worldEntity.stoppedMoving();
             }
         })));
+        return true;
     }
 }

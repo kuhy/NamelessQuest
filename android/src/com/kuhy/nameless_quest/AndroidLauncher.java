@@ -6,7 +6,6 @@ import android.view.View;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.kuhy.nameless_quest.NamelessQuest;
 
 public class AndroidLauncher extends AndroidApplication {
 	int currentApiVersion;
@@ -30,7 +29,7 @@ public class AndroidLauncher extends AndroidApplication {
 
 			getWindow().getDecorView().setSystemUiVisibility(flags);
 
-			// Code below is to handle presses of Volume up or Volume down.
+			// Code below is to handle presses of Volume up or Volume DOWN.
 			// Without this, after pressing volume buttons, the navigation bar will
 			// show up and won't hide
 			final View decorView = getWindow().getDecorView();

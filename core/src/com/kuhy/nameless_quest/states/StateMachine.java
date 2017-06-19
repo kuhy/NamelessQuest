@@ -1,6 +1,8 @@
 package com.kuhy.nameless_quest.states;
 
-import java.util.HashMap;
+import com.kuhy.nameless_quest.game.GameState;
+
+import java.util.EnumMap;
 
 /**
  * Created by Kuhy on 15.6.2017.
@@ -8,13 +10,21 @@ import java.util.HashMap;
 
 public class StateMachine
 {
-    HashMap<String, State> states = new HashMap<String, State>();
+    private static StateMachine instance;
+    EnumMap<States, State> states = new EnumMap<States, State>(States.class);
     State currentState = null;
 
-    public StateMachine(String name, State state) {
-        states.put(name, state);
-        currentState = state;
-        state.onEnter();
+    public enum States {GAME}
+
+    private StateMachine() {
+        states.put(States.GAME, new GameState());
+    }
+
+    public static StateMachine getInstance() {
+        if (instance == null) {
+            instance = new StateMachine();
+        }
+        return instance;
     }
 
     public void update(float elapsedTime)
@@ -29,19 +39,16 @@ public class StateMachine
             currentState.render();
     }
 
-    public void change(String stateName)
+    public void change(States stateEnum)
     {
-        currentState.onExit();
-        currentState = states.get(stateName);
+        if(currentState != null)
+            currentState.onExit();
+        currentState = states.get(stateEnum);
         currentState.onEnter();
     }
 
-    public void add(String name, State state)
-    {
-        states.put(name, state);
-    }
-
     public void onExit() {
-        currentState.onExit();
+        if(currentState != null)
+            currentState.onExit();
     }
 }

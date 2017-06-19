@@ -13,7 +13,8 @@ public class NamelessQuest extends ApplicationAdapter {
 	@Override
 	public void create () {
 		GameState gameState = new GameState();
-        stateMachine = new StateMachine("game", gameState);
+        stateMachine = StateMachine.getInstance();
+		stateMachine.change(StateMachine.States.GAME);
 	}
 
 	@Override
