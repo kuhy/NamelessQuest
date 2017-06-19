@@ -1,6 +1,5 @@
-package com.kuhy.nameless_quest;
+package com.kuhy.nameless_quest.game;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
