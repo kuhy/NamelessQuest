@@ -21,6 +21,7 @@ public class GameUI extends Stage implements UserInterface {
     private Skin arrowSkin;
     final static float ARROWS_DISTANCE = 70f;
     private Player player;
+    private WorldEntity.Direction playerDirection = null;
 
     public GameUI(Player player) {
         super(new StretchViewport(800, 500));
@@ -48,12 +49,24 @@ public class GameUI extends Stage implements UserInterface {
         button.addListener(new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                player.move(direction);
+                playerDirection = direction;
                 return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                playerDirection = null;
             }
         });
         button.setPosition(x, y);
         addActor(button);
+    }
+
+    @Override
+    public void act() {
+        super.act();
+        if(playerDirection != null)
+            player.move(playerDirection);
     }
 
     @Override

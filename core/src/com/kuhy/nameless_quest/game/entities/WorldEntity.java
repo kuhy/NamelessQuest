@@ -40,14 +40,16 @@ public abstract class WorldEntity extends Actor {
     }
 
     public void move(Direction direction) {
-        if(hasActions() == false)//zmenit - na konci akce nastavit na false
-            isMoving = false;
         if(roomManager.moveWorldEntity(this, direction))
             isMoving = true;
     }
 
     public boolean isMoving() {
         return  isMoving;
+    }
+
+    public void stoppedMoving() {
+        isMoving = false;
     }
 
     public float getSpeed() {
