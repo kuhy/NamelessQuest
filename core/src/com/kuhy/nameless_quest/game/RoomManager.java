@@ -22,34 +22,26 @@ public class RoomManager {
             return false;
         switch (direction) {
             case up:
-                worldEntity.addAction(sequence(Actions.moveTo(worldEntity.getX(), worldEntity.getY() + 1, worldEntity.getSpeed()), run(new Runnable() {
-                    public void run () {
-                        worldEntity.stoppedMoving();
-                    }
-                })));
+                addMoveToAction(worldEntity, 0, 1);
                 break;
             case down:
-                worldEntity.addAction(sequence(Actions.moveTo(worldEntity.getX(), worldEntity.getY() - 1, worldEntity.getSpeed()), run(new Runnable() {
-                    public void run () {
-                        worldEntity.stoppedMoving();
-                    }
-                })));
+                addMoveToAction(worldEntity, 0, -1);
                 break;
             case left:
-                worldEntity.addAction(sequence(Actions.moveTo(worldEntity.getX() - 1, worldEntity.getY(), worldEntity.getSpeed()), run(new Runnable() {
-                    public void run () {
-                        worldEntity.stoppedMoving();
-                    }
-                })));
+                addMoveToAction(worldEntity, -1, 0);
                 break;
             case right:
-                worldEntity.addAction(sequence(Actions.moveTo(worldEntity.getX() + 1, worldEntity.getY(), worldEntity.getSpeed()), run(new Runnable() {
-                    public void run () {
-                        worldEntity.stoppedMoving();
-                    }
-                })));
+                addMoveToAction(worldEntity, 1, 0);
                 break;
         }
         return true;
+    }
+
+    private void addMoveToAction(final WorldEntity worldEntity, int x, int y) {
+        worldEntity.addAction(sequence(Actions.moveTo(worldEntity.getX() + x, worldEntity.getY() + y, worldEntity.getSpeed()), run(new Runnable() {
+            public void run () {
+                worldEntity.stoppedMoving();
+            }
+        })));
     }
 }

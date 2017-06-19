@@ -14,7 +14,7 @@ import com.kuhy.nameless_quest.game.RoomManager;
 public abstract class WorldEntity extends Actor {
     private Sprite sprite;
     private float speed;
-    private boolean isMoving = false;
+    private Direction direction = null;
     private static RoomManager roomManager;
 
     public WorldEntity(String textureLocation) {
@@ -41,15 +41,18 @@ public abstract class WorldEntity extends Actor {
 
     public void move(Direction direction) {
         if(roomManager.moveWorldEntity(this, direction))
-            isMoving = true;
+            this.direction = direction;
     }
 
     public boolean isMoving() {
-        return  isMoving;
+        if(direction == null)
+            return  false;
+        else
+            return  true;
     }
 
     public void stoppedMoving() {
-        isMoving = false;
+        this.direction = null;
     }
 
     public float getSpeed() {
