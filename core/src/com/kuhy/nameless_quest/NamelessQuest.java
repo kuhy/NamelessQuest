@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.kuhy.nameless_quest.game.GameState;
 import com.kuhy.nameless_quest.states.StateMachine;
+import com.kuhy.nameless_quest.states.UITools;
 
 
 public class NamelessQuest extends ApplicationAdapter {
@@ -14,7 +15,11 @@ public class NamelessQuest extends ApplicationAdapter {
 	public void create () {
 		GameState gameState = new GameState();
         stateMachine = StateMachine.getInstance();
-		stateMachine.change(StateMachine.States.GAME);
+
+        stateMachine.setup();
+		UITools.setup();
+
+        stateMachine.change(StateMachine.States.MAIN_MENU);
 	}
 
 	@Override
@@ -27,6 +32,8 @@ public class NamelessQuest extends ApplicationAdapter {
 
 	@Override
 	public void dispose () {
-		stateMachine.onExit();
+        stateMachine.onExit();
+		stateMachine.dispose();
+        UITools.dispose();
 	}
 }

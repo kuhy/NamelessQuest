@@ -9,5 +9,7 @@ public interface State
     void update(float elapsedTime);
     void render();
     void onEnter();
+    void onResume();
+    void onPause();
     void onExit();
 }

@@ -1,5 +1,6 @@
 package com.kuhy.nameless_quest.game;
 
+import com.badlogic.gdx.Gdx;
 import com.kuhy.nameless_quest.game.entities.Player;
 import com.kuhy.nameless_quest.game.entities.WorldEntity;
 import com.kuhy.nameless_quest.states.State;
@@ -23,6 +24,16 @@ public class GameState implements State {
         room.addActor(player);
         gameUI = new GameUI(player);
         gameUI.onEnter();
+    }
+
+    @Override
+    public void onResume() {
+        Gdx.input.setInputProcessor(gameUI);
+    }
+
+    @Override
+    public void onPause() {
+
     }
 
     @Override

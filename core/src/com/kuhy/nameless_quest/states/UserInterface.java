@@ -6,7 +6,7 @@ package com.kuhy.nameless_quest.states;
 
 public interface UserInterface {
     void onEnter();
-    void onExit();
     void act();
     void draw();
+    void onExit();
 }

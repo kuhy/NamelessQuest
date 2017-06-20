@@ -7,9 +7,13 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.kuhy.nameless_quest.game.entities.Player;
 import com.kuhy.nameless_quest.game.entities.WorldEntity;
+import com.kuhy.nameless_quest.states.StateMachine;
+import com.kuhy.nameless_quest.states.UITools;
 import com.kuhy.nameless_quest.states.UserInterface;
 
 /**
@@ -31,7 +35,6 @@ public class GameUI extends Stage implements UserInterface {
     @Override
     public void onEnter() {
         clear();
-        Gdx.input.setInputProcessor(this);
         arrowsAtlas = new TextureAtlas(Gdx.files.internal("arrows.atlas"));
         arrowSkin = new Skin();
         arrowSkin.addRegions(arrowsAtlas);
@@ -39,6 +42,15 @@ public class GameUI extends Stage implements UserInterface {
         makeButton(WorldEntity.Direction.DOWN, "arrow-down-off", "arrow-down-on", ARROWS_DISTANCE, 0);
         makeButton(WorldEntity.Direction.LEFT, "arrow-left-off", "arrow-left-on", 0, ARROWS_DISTANCE);
         makeButton(WorldEntity.Direction.RIGHT, "arrow-right-off", "arrow-right-on", 2 * ARROWS_DISTANCE, ARROWS_DISTANCE);
+
+        TextButton pauseButton = UITools.makeTextButton("Pause", 690, 450, 100, 40);
+        pauseButton.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                StateMachine.getInstance().change(StateMachine.States.IN_GAME_MENU, true, false);
+            }
+        });
+        addActor(pauseButton);
     }
 
     private void makeButton(final WorldEntity.Direction direction, String up, String down, float x, float y) {
